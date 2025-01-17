@@ -9,6 +9,7 @@
 #endif
 // グローバル変数の宣言
 
+int cyc_cnt = 0;  // カウンター
 
 // ライントレース処理の実装
 void line_trace() {
