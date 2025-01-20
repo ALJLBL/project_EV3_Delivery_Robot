@@ -92,14 +92,4 @@ void gripper(void){
         // 状態をGO_YARDに変更
         status = GO_HOME;
     }
-
-    // UP / DOWN _BUTTONが押されるとグリッパーを動作させる
-    if (ev3_button_is_pressed(UP_BUTTON)) {
-        ev3_motor_rotate(M_motor, 20, 100, 0);  // グリッパーを閉じる
-        //gripper_flag = 1;  // グリッパーが閉じた
-    }
-    if (ev3_button_is_pressed(DOWN_BUTTON)) {
-        ev3_motor_rotate(M_motor, -20, 100, 0);  // グリッパーを開く
-        //gripper_flag = 0;  // グリッパーが開いた
-    }
 }
