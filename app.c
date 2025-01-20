@@ -28,6 +28,7 @@ int stop_count = 0; // 誤検知防止用
 int stop_count_start = 0;    // 誤検知防止用
 int cyc_cnt = 0;  // カウンター
 int speaker_timer = 0; // スピーカーのタイマー
+bool_t err_check = false; // エラーチェック用
 
 
 
