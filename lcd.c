@@ -42,6 +42,36 @@ void display_on_lcd() {
 
 			snprintf(buffer, sizeof(buffer), "Press center key");
 			ev3_lcd_draw_string(buffer, 0, 40);
+
+			// グリッパーの状態を表示
+			snprintf(buffer, sizeof(buffer), "grip: %d", gripper_flag);
+			ev3_lcd_draw_string(buffer, 0, 60);
+
+			// M_motorの回転角度を表示
+			snprintf(buffer, sizeof(buffer), "angle: %08d", angle);
+			ev3_lcd_draw_string(buffer, 0, 80);
+			break;
+
+		case GO_STORE:
+			// 現在のカラーセンサー値を表示
+			snprintf(buffer, sizeof(buffer), "fron_col: %02d", color_flag);
+			ev3_lcd_draw_string(buffer, 0, 20);
+
+			// ラインセンサー値を表示
+			snprintf(buffer, sizeof(buffer), "line_col: %02d", line_cor);
+			ev3_lcd_draw_string(buffer, 0, 40);
+
+			// ラインセンサーの反射率を表示
+			snprintf(buffer, sizeof(buffer), "line_ref: %03d", line_ref);
+			ev3_lcd_draw_string(buffer, 0, 60);
+
+			// グリッパーの状態を表示
+			snprintf(buffer, sizeof(buffer), "grip: %d", gripper_flag);
+			ev3_lcd_draw_string(buffer, 0, 80);
+
+			// M_motorの回転角度を表示
+			snprintf(buffer, sizeof(buffer), "angle: %08d", angle);
+			ev3_lcd_draw_string(buffer, 0, 100);
 			break;
 
 		case GO_YARD:
@@ -89,6 +119,28 @@ void display_on_lcd() {
 			break;
 
 		case DROP_DOWN:
+			// 現在のカラーセンサー値を表示
+			snprintf(buffer, sizeof(buffer), "fron_col: %02d", color_flag);
+			ev3_lcd_draw_string(buffer, 0, 20);
+
+			// ラインセンサー値を表示
+			snprintf(buffer, sizeof(buffer), "line_col: %02d", line_cor);
+			ev3_lcd_draw_string(buffer, 0, 40);
+
+			// ラインセンサーの反射率を表示
+			snprintf(buffer, sizeof(buffer), "line_ref: %03d", line_ref);
+			ev3_lcd_draw_string(buffer, 0, 60);
+
+			// グリッパーの状態を表示
+			snprintf(buffer, sizeof(buffer), "grip: %d", gripper_flag);
+			ev3_lcd_draw_string(buffer, 0, 80);
+
+			// M_motorの回転角度を表示
+			snprintf(buffer, sizeof(buffer), "angle: %08d", angle);
+			ev3_lcd_draw_string(buffer, 0, 100);
+			break;
+
+		case GO_HOME:
 			// 現在のカラーセンサー値を表示
 			snprintf(buffer, sizeof(buffer), "fron_col: %02d", color_flag);
 			ev3_lcd_draw_string(buffer, 0, 20);

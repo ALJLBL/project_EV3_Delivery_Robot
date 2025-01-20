@@ -9,5 +9,6 @@ void loop_wait(void);
 void parking(void);
 void start(void);
 void error(void);
+void gripper_control(void);
 
 #endif /* __wait_h__ */

@@ -36,6 +36,7 @@ void run_task(intptr_t unused) {
 	switch (status) {
 	case START_WAIT:
 		start_wait();
+		gripper_control();
 		break;
 
 	case START:
@@ -43,33 +44,18 @@ void run_task(intptr_t unused) {
 		break;
 
 	case GO_STORE:
-		// UP / DOWN _BUTTONが押されるとグリッパーを動作させる
-		if (ev3_button_is_pressed(UP_BUTTON)) {
-			ev3_motor_rotate(M_motor, 20, 100, 0);  // グリッパーを閉じる
-			//gripper_flag = 1;  // グリッパーが閉じた
-		}
-		if (ev3_button_is_pressed(DOWN_BUTTON)) {
-			ev3_motor_rotate(M_motor, -20, 100, 0);  // グリッパーを開く
-			//gripper_flag = 0;  // グリッパーが開いた
-		}
 		line_trace();
+		gripper_control();
 		break;
 		
 	case PICK_UP:
 		gripper();
+		gripper_control();
 		break;
 
 	case GO_YARD:
-		// UP / DOWN _BUTTONが押されるとグリッパーを動作させる
-		if (ev3_button_is_pressed(UP_BUTTON)) {
-			ev3_motor_rotate(M_motor, 20, 100, 0);  // グリッパーを閉じる
-			//gripper_flag = 1;  // グリッパーが閉じた
-		}
-		if (ev3_button_is_pressed(DOWN_BUTTON)) {
-			ev3_motor_rotate(M_motor, -20, 100, 0);  // グリッパーを開く
-			//gripper_flag = 0;  // グリッパーが開いた
-		}
 		line_trace();
+		gripper_control();
 		break;
 
 	case DROP_DOWN:
@@ -78,10 +64,12 @@ void run_task(intptr_t unused) {
 
 	case GO_HOME:
 		line_trace();
+		gripper_control();
 		break;
 
 	case LOOP_WAIT:
 		loop_wait();
+		gripper_control();
 		break;
 
 	case PARKING:
@@ -90,6 +78,7 @@ void run_task(intptr_t unused) {
 
 	case ERROR:
 		error();
+		gripper_control();
 		break;
 	
 	case END:
@@ -119,9 +108,9 @@ void sensor_task(intptr_t unused) {
 
 	// グリッパーの状態を取得
 	if (angle > -100 && angle < 100) {
-		gripper_flag = 1;
+		gripper_flag = 1; // 閉じている
 	} else if (angle > -1540 && angle < -1340) {	
-		gripper_flag = 0;
+		gripper_flag = 0; // 開いている
 	}
 	
 }

@@ -16,7 +16,7 @@ void start_wait() {
         ev3_lcd_fill_rect(0, 0, EV3_LCD_WIDTH, EV3_LCD_HEIGHT, EV3_LCD_WHITE);
         tslp_tsk(5);
         status = START;
-    };
+    }
 }
 
 void loop_wait() {
@@ -145,6 +145,7 @@ void error() {
     ev3_motor_stop(L_motor, true);
     ev3_motor_stop(R_motor, true);
     ev3_motor_stop(M_motor, true);
+    speaker_set_volume(20);
     ev3_speaker_play_tone(NOTE_C4, 500);
 
     // UP / DOWN _BUTTONが押されるとグリッパーを動作させる
@@ -161,3 +162,16 @@ void error() {
         status = last_status;
     }
 }
+
+void gripper_control() {
+    if (ev3_button_is_pressed(UP_BUTTON)) {
+        ev3_motor_rotate(M_motor, 20, 100, 0);  // グリッパーを閉じる
+    }
+    if (ev3_button_is_pressed(DOWN_BUTTON)) {
+        ev3_motor_rotate(M_motor, -20, 100, 0);  // グリッパーを開く
+    }
+    if (ev3_button_is_pressed(BACK_BUTTON)) {   // リセット
+        ev3_motor_reset_counts(M_motor);
+    }
+}
+

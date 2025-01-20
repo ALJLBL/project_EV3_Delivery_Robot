@@ -18,25 +18,28 @@ void gripper(void){
 
         ev3_motor_rotate(M_motor, -360*4, 100, 0);  // グリッパーを開く
 
-        // 2000ms待機
+        // 待機
         tslp_tsk(1500);
 
+        // 前進
         ev3_motor_steer(L_motor, R_motor, 10, 0);
 
-        // 0.5秒待機
+        // 待機
         tslp_tsk(700);
 
+        // 停止
         ev3_motor_stop(L_motor, true);
         ev3_motor_stop(R_motor, true);
 
         // グリッパーを閉じる
         ev3_motor_rotate(M_motor, 360*4, 50, 0);  
 
+        // 待機
         tslp_tsk(1500);
 
         ev3_motor_steer(L_motor, R_motor, -10, 0);// バック
         
-        tslp_tsk(900);// 0.5秒待機
+        tslp_tsk(900);// 待機
 
         // 状態をGO_YARDに変更
         status = GO_YARD;
@@ -45,17 +48,17 @@ void gripper(void){
     //if (((line_cor == 3 && color_flag == 3) || (line_cor == 5 && color_flag == 5)) && (gripper_flag == 1)) { // ラインセンサーが緑または赤 かつ カラーセンサーが緑または赤 かつ グリッパーが閉じている場合
     if (status == DROP_DOWN) {
         ev3_motor_steer(L_motor, R_motor, -10, 0);// バック
-        tslp_tsk(1500);// 0.5秒待機
+        tslp_tsk(1900);// 待機
 
         ev3_motor_stop(L_motor, true);// モーター停止
         ev3_motor_stop(R_motor, true);// モーター停止
 
         // グリッパーを開く
-        ev3_motor_rotate(M_motor, -360*4, 100, 0);  
+        ev3_motor_rotate(M_motor, -360*4, 100, 0);
         tslp_tsk(1500);// 1500ms待機
         
-        ev3_motor_steer(L_motor, R_motor, 10, 0);// 前進
-        tslp_tsk(900);// 0.5秒待機
+        ev3_motor_steer(L_motor, R_motor, -10, 0);// バック
+        tslp_tsk(700);// 待機
         
         ev3_motor_stop(L_motor, true);// モーター停止
         ev3_motor_stop(R_motor, true);// モーター停止
