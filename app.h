@@ -62,5 +62,6 @@ extern int stop_count_start;    // 誤検知防止用
 extern int last_line_cor;  // 最後のラインセンサーの色を格納
 extern int cyc_cnt;  // カウンター
 extern int speaker_timer; // スピーカーのタイマー
+extern bool_t err_check; // エラーチェック用
 
 #endif /* APP_H */
