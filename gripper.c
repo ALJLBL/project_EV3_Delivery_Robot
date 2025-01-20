@@ -39,7 +39,7 @@ void gripper(void){
 
         ev3_motor_steer(L_motor, R_motor, -10, 0);// バック
         
-        tslp_tsk(900);// 待機
+        tslp_tsk(800);// 待機
 
         // 状態をGO_YARDに変更
         status = GO_YARD;
@@ -71,8 +71,12 @@ void gripper(void){
         // 180度回転
         ev3_motor_set_power(L_motor, -20);
         ev3_motor_set_power(R_motor, 20);
-
-        tslp_tsk(1200);
+        if (last_color == 3) {
+            tslp_tsk(1600);
+        }else {
+            tslp_tsk(1200);
+        }
+        
 
         ev3_motor_stop(L_motor, true);// モーター停止
         ev3_motor_stop(R_motor, true);// モーター停止

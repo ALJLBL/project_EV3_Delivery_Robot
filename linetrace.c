@@ -81,6 +81,14 @@ void line_trace() {
         }else {
             stop_count = 0; // リセット
         }
+        if (stop_count > 10) { // カウンターが3になり、緑または赤を未検出
+            power = 0;
+            turn = 0;
+            stop_count = 0;
+            last_status = status;   // 状態を保存
+            status = ERROR;         // エラー状態に遷移
+            return;
+        }
 
         // ラインセンサーが最後の荷物の色を検出
         if (now_color == last_color) {
@@ -93,9 +101,9 @@ void line_trace() {
         if (cyc_cnt == 3 && (front_color == 3 || front_color == 5)) {
             ev3_motor_stop(L_motor, true);
             ev3_motor_stop(R_motor, true);
-            tslp_tsk(100);
+            tslp_tsk(500);
             ev3_motor_steer(L_motor, R_motor, -10, 0);
-            tslp_tsk(100);
+            tslp_tsk(200);
             power = 0;
             turn = 0;
             cyc_cnt = 0;
@@ -104,14 +112,7 @@ void line_trace() {
                 status = DROP_DOWN;
             }// ラインセンサーが緑また赤以外を検知した場合は　==> 何もしない
         
-        } else if (stop_count == 3 && (front_color != 3 && front_color != 5)) { // カウンターが3になり、緑または赤を未検出
-            power = 0;
-            turn = 0;
-            stop_count = 0;
-            last_status = status;   // 状態を保存
-            status = ERROR;         // エラー状態に遷移
-
-        } else {
+        }else {
             if (now_val < threshold) {
                 turn = p * (now_val - threshold); // P制御
             } else {
@@ -127,8 +128,12 @@ void line_trace() {
             stop_count = 0; // リセット
         }
 
-        if (stop_count > 4) { // 停止条件
-            tslp_tsk(10);//待機
+        if (stop_count > 6) { // 停止条件
+            ev3_motor_stop(L_motor, true);
+            ev3_motor_stop(R_motor, true);
+            tslp_tsk(500);
+            ev3_motor_steer(L_motor, R_motor, -10, 0);
+            tslp_tsk(200);
             power = 0;
             turn = 0;
             stop_count = 0;

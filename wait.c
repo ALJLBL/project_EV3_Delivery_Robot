@@ -145,7 +145,7 @@ void error() {
     ev3_motor_stop(L_motor, true);
     ev3_motor_stop(R_motor, true);
     ev3_motor_stop(M_motor, true);
-    speaker_set_volume(20);
+    ev3_speaker_set_volume(20);
     ev3_speaker_play_tone(NOTE_C4, 500);
 
     // UP / DOWN _BUTTONが押されるとグリッパーを動作させる
