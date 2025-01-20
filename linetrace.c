@@ -81,7 +81,7 @@ void line_trace() {
         }else {
             stop_count = 0; // リセット
         }
-        if (stop_count > 10) { // カウンターが3になり、緑または赤を未検出
+        if (stop_count > 6 && err_check == false) { // カウンターが6になり、緑または赤を未検出、かつエラーチェックがfalseの場合
             power = 0;
             turn = 0;
             stop_count = 0;
