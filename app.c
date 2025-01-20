@@ -27,10 +27,12 @@ int last_line_cor;  // 最後のラインセンサーの色を格納
 int stop_count = 0; // 誤検知防止用
 int stop_count_start = 0;    // 誤検知防止用
 int cyc_cnt = 0;  // カウンター
+int speaker_timer = 0; // スピーカーのタイマー
 
 
 
 void run_task(intptr_t unused) {
+	ev3_lcd_fill_rect(0, 0, EV3_LCD_WIDTH, EV3_LCD_HEIGHT, EV3_LCD_WHITE);
 
 	// 状態制御
 	switch (status) {
@@ -107,9 +109,9 @@ void sensor_task(intptr_t unused) {
 	}
 
 	// グリッパーの状態を取得
-	if (angle > -100 && angle < 100) {
+	if (angle > -200 && angle < 200) {
 		gripper_flag = 1; // 閉じている
-	} else if (angle > -1540 && angle < -1340) {	
+	} else if (angle > -1640 && angle < -1240) {
 		gripper_flag = 0; // 開いている
 	}
 	
