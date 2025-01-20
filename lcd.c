@@ -52,6 +52,28 @@ void display_on_lcd() {
 			ev3_lcd_draw_string(buffer, 0, 80);
 			break;
 
+		case START:
+			// 現在のカラーセンサー値を表示
+			snprintf(buffer, sizeof(buffer), "fron_col: %02d", color_flag);
+			ev3_lcd_draw_string(buffer, 0, 20);
+
+			// ラインセンサー値を表示
+			snprintf(buffer, sizeof(buffer), "line_col: %02d", line_cor);
+			ev3_lcd_draw_string(buffer, 0, 40);
+
+			// ラインセンサーの反射率を表示
+			snprintf(buffer, sizeof(buffer), "line_ref: %03d", line_ref);
+			ev3_lcd_draw_string(buffer, 0, 60);
+
+			// グリッパーの状態を表示
+			snprintf(buffer, sizeof(buffer), "grip: %d", gripper_flag);
+			ev3_lcd_draw_string(buffer, 0, 80);
+
+			// M_motorの回転角度を表示
+			snprintf(buffer, sizeof(buffer), "angle: %08d", angle);
+			ev3_lcd_draw_string(buffer, 0, 100);
+			break;
+
 		case GO_STORE:
 			// 現在のカラーセンサー値を表示
 			snprintf(buffer, sizeof(buffer), "fron_col: %02d", color_flag);
@@ -180,6 +202,29 @@ void display_on_lcd() {
 
 		case ERROR:
 			snprintf(buffer, sizeof(buffer), "Error Occured!!!!");
+			ev3_lcd_draw_string(buffer, 0, 20);
+			// last_statusを表示
+			const char* last_status_str;
+			switch(last_status) {
+				case START_WAIT: last_status_str = "START_WAIT"; break;
+				case START: last_status_str = "START"; break;
+				case GO_STORE: last_status_str = "GO_STORE"; break;
+				case PICK_UP: last_status_str = "PICK_UP"; break;
+				case GO_YARD: last_status_str = "GO_YARD"; break;
+				case DROP_DOWN: last_status_str = "DROP_DOWN"; break;
+				case GO_HOME: last_status_str = "GO_HOME"; break;
+				case LOOP_WAIT: last_status_str = "LOOP_WAIT"; break;
+				case PARKING: last_status_str = "PARKING"; break;
+				case ERROR: last_status_str = "ERROR"; break;
+				case END: last_status_str = "END"; break;
+				default: last_status_str = "UNKNOWN"; break;
+			}
+			snprintf(buffer, sizeof(buffer), "Last Sta: %s", last_status_str);
+			ev3_lcd_draw_string(buffer, 0, 40);
+			break;
+
+		case END:
+			snprintf(buffer, sizeof(buffer), "Carrying End");
 			ev3_lcd_draw_string(buffer, 0, 20);
 			break;
 
