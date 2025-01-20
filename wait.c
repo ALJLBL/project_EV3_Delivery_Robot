@@ -167,6 +167,7 @@ void error() {
         status = GO_HOME;
     } else if (ev3_button_is_pressed(ENTER_BUTTON)) {
         status = last_status;
+        err_check = true;
     }
 }
 
