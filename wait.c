@@ -145,9 +145,16 @@ void error() {
     ev3_motor_stop(L_motor, true);
     ev3_motor_stop(R_motor, true);
     ev3_motor_stop(M_motor, true);
-    ev3_speaker_set_volume(20);
-    ev3_speaker_play_tone(NOTE_C4, 500);
+    ev3_speaker_set_volume(10);
 
+    speaker_timer++;
+
+    if (speaker_timer > 50) {
+        ev3_speaker_play_tone(NOTE_C4, 1000);
+        speaker_timer = 0;
+    }
+
+    
     // UP / DOWN _BUTTONが押されるとグリッパーを動作させる
     if (ev3_button_is_pressed(UP_BUTTON)) {
         ev3_motor_rotate(M_motor, 20, 100, 0);  // グリッパーを閉じる
